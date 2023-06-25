@@ -1,5 +1,6 @@
-from random import randint
 from redis import Redis, ConnectionPool
+
+from random import randint
 from os import getpid
 
 from collections.abc import Callable
@@ -40,7 +41,9 @@ redis_pool = None
 
 def redis_conn_init():
     global redis_pool
-    print("PID %d: initializing redis pool..." % getpid())
+
+    print(f'PID {getpid()}: initializing redis pool...')
+
     redis_pool = ConnectionPool(
         host='localhost',
         port=6379,
@@ -84,9 +87,10 @@ def fibonacci_number_demonstration(fibonacci_number: Callable) -> None:
 
     for i in range(5):
         n = randint(10, 20)
-        print(n, "---", fibonacci_number(n))
+        print(f'{n} --- {fibonacci_number(n)}')
 
-    print(1000, "-", foo(1000))
+    n = 1000
+    print(f'{n} --- {fibonacci_number(n)}')
 
 
 def dict_print(dictionary: dict) -> None:
@@ -110,7 +114,8 @@ def naive_redis_connect() -> None:
     print(r.set('foo', 'bar'))
     print(r.get('foo'))
 
-    print(f'\nkeys:')
+    print(f'\n'
+          f'keys:')
     [print(k) for k in r.keys()]
 
 
